@@ -1,0 +1,47 @@
+$bodyColor: #F7FAFC
+
+body
+    background: $bodyColor !important
+
+.center
+    margin: auto
+    right: 0
+    left: 0
+    top: 0
+    bottom: 0
+    position: absolute
+    width: 200px
+    height: 200px
+    display: flex
+    align-items: center
+
+.header
+    background: $bodyColor
+    margin: 16px 0px
+    padding: 0px 16px
+    position: sticky
+    top: 0
+    z-index: 999
+    border-bottom: 1px solid rgba(131, 131, 131, 0.05)
+
+.truncate
+    // maxWidth: 250px
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+.blackButton
+    background: #000 !important
+    color: #fff !important
+    &:hover
+        background: #484848 !important
+
+// Hide html5 number input's spin box.
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none
+    margin: 0 // Apparently some margin are still there even though it's hidden
+
+input[type=number]
+    -moz-appearance: textfield // Firefox
