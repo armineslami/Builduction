@@ -1,4 +1,4 @@
-import { Global } from '@emotion/react'
+import { Global } from "@emotion/react";
 
 // This component is used by chakar-ui
 const Fonts = () => (
@@ -10,7 +10,7 @@ const Fonts = () => (
         font-style: normal;
         font-weight: 400;
         font-display: swap;
-        src: url('/fonts/IRANSansX-Regular.woff2') format('woff2'), url('../../assets/fonts/IRANSansX-Regular.woff') format('woff');
+        src: url('/fonts/IRANSansX-Regular.woff') format('woff');
       }
       /* latin */
       @font-face {
@@ -18,10 +18,10 @@ const Fonts = () => (
         font-style: bold;
         font-weight: 500;
         font-display: swap;
-        src: url('/fonts/IRANSansX-Bold.woff2') format('woff2'), url('../../assets/fonts/IRANSansX-Bold.woff2') format('woff');
+        src: url('/fonts/IRANSansX-Bold.woff') format('woff');
       }
       `}
   />
-)
+);
 
-export default Fonts
+export default Fonts;
