@@ -52,7 +52,7 @@ const ProjectPage: NextPage = () => {
 
   const [loading, setLoading] = useState<boolean>(id !== undefined);
 
-  if (id !== undefined && project.id !== id) {
+  if (id !== undefined && project.id !== id && loading) {
     targetProject = dbHelper.find(id);
     if (targetProject) setProject(targetProject);
     setLoading(false);
