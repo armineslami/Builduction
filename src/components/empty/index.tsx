@@ -10,7 +10,8 @@ const Empty: FunctionComponent = () => {
           priority={true}
           alt="empty"
           src="/images/directory.png"
-          style={{ width: "100px", height: "100px" }}
+          width={100}
+          height={100}
         />
         <Text>پروژه‌ای وجود ندارد</Text>
       </VStack>
