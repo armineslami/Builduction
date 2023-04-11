@@ -36,6 +36,20 @@ const HomePage: NextPage = () => {
     return !projects?.length ? <Empty /> : renderProjects(projects);
   };
 
+  /**
+   * Creates an array of react element using {@link ProjectRow} for each available project in given {@param projects} array.
+   * @param projects - An array of project
+   * @returns react element
+   */
+  function renderProjects(projects: Project[]): React.ReactElement[] {
+    const projectRows: React.ReactElement[] = projects.map(
+      (project: Project) => {
+        return <ProjectRow project={project} key={project.id} />;
+      }
+    );
+    return projectRows;
+  }
+
   return (
     <Box>
       <Center>
@@ -73,12 +87,5 @@ const HomePage: NextPage = () => {
     </Box>
   );
 };
-
-function renderProjects(projects: Project[]): React.ReactElement[] {
-  const projectRows: React.ReactElement[] = projects.map((project: Project) => {
-    return <ProjectRow project={project} key={project.id} />;
-  });
-  return projectRows;
-}
 
 export default HomePage;
