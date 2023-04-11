@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const PageNotFound = () => {
   return (
-    <Box position="relative" minH="500px" bg="white" p="16px">
+    <Box position="relative" minH="500px" p="16px">
       <Center>
         <div className="center">
           <VStack>

@@ -50,6 +50,9 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
     onSave(project);
   };
 
+  /**
+   * Reads each input ref value and set them to the {@link project}.
+   */
   const readInputs = () => {
     project.landSize =
       inputLandSize.current?.value && inputLandSize.current.value !== ""
@@ -128,6 +131,19 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
         ? Number.parseInt(inputOtherCosts.current.value)
         : 0;
   };
+
+  /**
+   * Creates {@link Text} using given {@param title} to reperesent a heading text.
+   * @param title - Title of heading text.
+   * @returns react element
+   */
+  function renderHeading(title: string): React.ReactElement {
+    return (
+      <Text fontSize="0.7rem" color="gray.600" mb="8px">
+        {title}
+      </Text>
+    );
+  }
 
   return (
     <Box>
@@ -337,13 +353,5 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
     </Box>
   );
 };
-
-function renderHeading(title: string) {
-  return (
-    <Text fontSize="0.7rem" color="gray.600" mb="8px">
-      {title}
-    </Text>
-  );
-}
 
 export default ProjectForm;

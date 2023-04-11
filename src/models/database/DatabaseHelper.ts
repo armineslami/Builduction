@@ -1,9 +1,9 @@
 import Project from "@/models/Project";
 import DatabaseInterface from "./DatabaseInterface";
 
-interface Data {
+type Data = {
   data: Project[];
-}
+};
 
 class DatabaseHelper implements DatabaseInterface {
   private key = "builduction-app-storage";

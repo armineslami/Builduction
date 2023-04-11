@@ -19,6 +19,7 @@ const fonts = {
 // Sets app direction
 const direction = "rtl";
 
+// Chakra-ui theme
 const theme = extendTheme({ direction, fonts });
 
 function App({ Component, pageProps }: AppProps) {
@@ -33,7 +34,7 @@ function App({ Component, pageProps }: AppProps) {
   const [appContext, setAppContext] = useState<ApplicationContext>(config);
 
   /**
-   * Calls @function setAppContext to update given state
+   * Calls @function setAppContext to update given state.
    * @param {SetStateAction<ApplicationContext>} value - A state to be set
    */
   function update(value: SetStateAction<ApplicationContext>) {

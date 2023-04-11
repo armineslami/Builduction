@@ -29,6 +29,63 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
   isModalOpen,
   onModalClose,
 }: CalculationModalProps) => {
+  /** Helper functions to render multiple kind of texts using {@link Text} component. */
+
+  function renderTitle(title: string): React.ReactElement {
+    return (
+      <Text
+        fontSize={"1.2rem"}
+        fontWeight={"bold"}
+        color={"gray.900"}
+        mt={"16px"}
+        mb={"16px"}
+      >
+        {`• `}
+        {title}
+      </Text>
+    );
+  }
+
+  function renderHead(title: string): React.ReactElement {
+    return (
+      <Text
+        fontSize={"0.8rem"}
+        fontWeight={"bold"}
+        color={"gray.900"}
+        mb={"8px"}
+      >
+        {title}
+      </Text>
+    );
+  }
+
+  function renderSubHead(title: string): React.ReactElement {
+    return (
+      <Text fontSize={"0.7rem"} color={"gray.500"} mb={"8px"}>
+        {title}
+      </Text>
+    );
+  }
+
+  function renderNumbericText(
+    number: number,
+    unit: string
+  ): React.ReactElement {
+    return (
+      <Box display={"flex"}>
+        <Text fontSize={"0.75rem"} fontWeight={"bold"} color={"cyan.900"}>
+          {Utils.convertEnglishNumberToPersian(
+            Utils.formatNumberWithComma(number.toString())
+          )}
+        </Text>
+        &nbsp;
+        <Text fontSize={"0.7rem"} color={"gray.900"} mt={"0.05rem"}>
+          {unit}
+        </Text>
+      </Box>
+    );
+  }
+
   return (
     <>
       <ChakraModal isOpen={isModalOpen} onClose={onModalClose}>
@@ -272,52 +329,5 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
     </>
   );
 };
-
-function renderTitle(title: string): React.ReactElement {
-  return (
-    <Text
-      fontSize={"1.2rem"}
-      fontWeight={"bold"}
-      color={"gray.900"}
-      mt={"16px"}
-      mb={"16px"}
-    >
-      {`• `}
-      {title}
-    </Text>
-  );
-}
-
-function renderHead(title: string): React.ReactElement {
-  return (
-    <Text fontSize={"0.8rem"} fontWeight={"bold"} color={"gray.900"} mb={"8px"}>
-      {title}
-    </Text>
-  );
-}
-
-function renderSubHead(title: string): React.ReactElement {
-  return (
-    <Text fontSize={"0.7rem"} color={"gray.500"} mb={"8px"}>
-      {title}
-    </Text>
-  );
-}
-
-function renderNumbericText(number: number, unit: string): React.ReactElement {
-  return (
-    <Box display={"flex"}>
-      <Text fontSize={"0.75rem"} fontWeight={"bold"} color={"cyan.900"}>
-        {Utils.convertEnglishNumberToPersian(
-          Utils.formatNumberWithComma(number.toString())
-        )}
-      </Text>
-      &nbsp;
-      <Text fontSize={"0.7rem"} color={"gray.900"} mt={"0.05rem"}>
-        {unit}
-      </Text>
-    </Box>
-  );
-}
 
 export default CalculationModal;

@@ -52,6 +52,10 @@ const ProjectPage: NextPage = () => {
 
   const [loading, setLoading] = useState<boolean>(id !== undefined);
 
+  /**
+   * If there is an id in the router e.g : {localhost/project/:id} and other conditions are met,
+   * try to find a matched project from the local stroage.
+   */
   if (id !== undefined && project.id !== id && loading) {
     targetProject = dbHelper.find(id);
     if (targetProject) setProject(targetProject);
@@ -62,6 +66,10 @@ const ProjectPage: NextPage = () => {
     targetProject ? true : false
   );
 
+  /**
+   * Calculates given project using {@link Calculator} and then saves it into the {@link project} variable.
+   * @param project - A project to be calculated.
+   */
   function calculate(project: Project) {
     // Calculate the project
     const calculatedProject = Calculator.calculate(project);
@@ -70,6 +78,10 @@ const ProjectPage: NextPage = () => {
     setProject(calculatedProject);
   }
 
+  /**
+   * Deletes a project from the local storage using given id.
+   * @param id - Id of a project to delete it.
+   */
   function deleteProject(id: string) {
     // delete from storage
     const successful = dbHelper.delete(id);
@@ -83,6 +95,10 @@ const ProjectPage: NextPage = () => {
     }
   }
 
+  /**
+   * Saves given project into the local storage. This function uses {@link project} variable.
+   * @param title - Project title
+   */
   function saveProject(title: string) {
     project.title = title;
 
@@ -97,6 +113,12 @@ const ProjectPage: NextPage = () => {
     }
   }
 
+  /**
+   * Creates a toast and displays it.
+   * @param title - Toast title
+   * @param description - Toast description
+   * @param status - Toast status {@link UseToastOptions}
+   */
   const createToast = (
     title: String,
     description: String,
@@ -111,7 +133,21 @@ const ProjectPage: NextPage = () => {
     });
   };
 
-  const renderContent = () => {
+  /**
+   * Tries to find a possible id of a project if it's available on the router.
+   * @returns  project id or undefined.
+   */
+  function FindProjectIdFromRouter(): string | undefined {
+    const router = useRouter();
+    const { id } = router.query;
+    return id ? (id as string) : undefined;
+  }
+
+  /**
+   * Renders the content of the page based on the {@link loading} state.
+   * @returns react element.
+   */
+  const renderContent = (): React.ReactElement => {
     if (loading) {
       return <Loading size={"lg"} />;
     }
@@ -206,11 +242,5 @@ const ProjectPage: NextPage = () => {
     </Center>
   );
 };
-
-function FindProjectIdFromRouter(): string | undefined {
-  const router = useRouter();
-  const { id } = router.query;
-  return id ? (id as string) : undefined;
-}
 
 export default ProjectPage;

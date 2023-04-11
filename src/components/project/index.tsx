@@ -63,6 +63,11 @@ const ProjectRow: FunctionComponent<ProjecRowProps> = ({
   );
 };
 
+/**
+ * Creates react element using {@link Badge} component.
+ * @param project - A project to use it's props for badges rendering.
+ * @returns react element.
+ */
 function renderBadges(project: Project): React.ReactElement {
   let buyBadge: BadgeProps | null = null;
   let participationBadge: BadgeProps | null = null;
