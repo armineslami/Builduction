@@ -111,7 +111,7 @@ function App({ Component, pageProps }: AppProps) {
     if (
       localStorageHelper.fetch().showPwaInstallPrompt == true &&
       didPwaInstallPromptAppear.current === false &&
-      // isAndroid() &&
+      isAndroid() &&
       !isInStandaloneMode()
     ) {
       setShowInstallPrompt({
