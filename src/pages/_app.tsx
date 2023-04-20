@@ -1,14 +1,15 @@
 import "@/styles/globals.sass";
 import type { AppProps } from "next/app";
+import dynamic from "next/dynamic";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import ApplicationWrapper from "@/context/AppContext";
 import ApplicationContext from "@/models/ApplicationContext";
 import { useState, SetStateAction, useEffect, useRef, useMemo } from "react";
 import MainLayout from "@/components/layout";
 import Fonts from "@/components/font";
-import InstallPrompt from "@/components/install-prompt";
 import LocalStorageHelper from "@/models/local-storage/LocalStorageHelper";
 import { LocalStorageUserDefaults } from "@/models/local-storage/LocalStorageInterface";
+const InstallPrompt = dynamic(() => import("@/components/install-prompt"));
 
 // Sets custom fonts
 const normal = `'IRANSansX-Normal', sans-serif`;
@@ -110,7 +111,7 @@ function App({ Component, pageProps }: AppProps) {
     if (
       localStorageHelper.fetch().showPwaInstallPrompt == true &&
       didPwaInstallPromptAppear.current === false &&
-      isAndroid() &&
+      // isAndroid() &&
       !isInStandaloneMode()
     ) {
       setShowInstallPrompt({
