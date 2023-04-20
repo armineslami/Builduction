@@ -26,7 +26,7 @@ const HomePage: NextPage = () => {
     const projects: Project[] = dbHelper.fetch();
     setProjects(projects);
     setLoading(false);
-  }, []); // empty array means that the effect function should be called once: after the first mount/render only.
+  }, []); // empty array means that the useEffect hook should be called once and only after the first mount/render.
 
   const renderContent = () => {
     if (loading) {
