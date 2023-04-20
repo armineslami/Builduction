@@ -11,7 +11,7 @@ describe("Home Page", () => {
         .should("be.visible")
         .should("have.attr", "alt", "empty")
         .should("have.attr", "src")
-        .and("match", /empty.png/);
+        .and("match", /empty.webp/);
     });
 
     it("should have a text", () => {

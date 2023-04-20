@@ -9,7 +9,7 @@ const Empty: FunctionComponent = () => {
         <Image
           priority={true}
           alt="empty"
-          src="/images/empty.png"
+          src="/images/empty.webp"
           width={64}
           height={64}
         />
