@@ -20,22 +20,27 @@ class DatabaseHelper implements DatabaseInterface {
   }
 
   private storage(): Data {
-    // First create a stroage if there is not one. This is to make sure we alaway have a stroage.
-    if (localStorage.getItem(this.key) === null) {
-      // Storage is null so create a default one
-      localStorage.setItem(this.key, this.defaultStorage);
+    try {
+      // First create a stroage if there is not one. This is to make sure we alaway have a stroage.
+      if (localStorage.getItem(this.key) === null) {
+        // Storage is null so create a default one
+        localStorage.setItem(this.key, this.defaultStorage);
 
-      this.log("Storage was empty therefore created one.", this.storage());
+        this.log("Storage was empty therefore created one.", this.storage());
+      }
+
+      // Now get the stroage again and save it.
+      const jsonStroage: string = localStorage.getItem(this.key) as string;
+
+      // Now try to parse the storage into JSON
+      const storage = JSON.parse(jsonStroage);
+
+      // Return the storage
+      return storage;
+    } catch (error) {
+      this.log("Failed to access the storage.", error);
+      return JSON.parse(this.defaultStorage);
     }
-
-    // Now get the stroage again and save it.
-    const storage: string = localStorage.getItem(this.key) as string;
-
-    // Now try to parse the storage into JSON
-    const jsonStroage = JSON.parse(storage);
-
-    // Return the storage
-    return jsonStroage;
   }
 
   /**
@@ -43,7 +48,12 @@ class DatabaseHelper implements DatabaseInterface {
    * @returns An array of projects
    */
   public fetch(): Project[] {
-    return this.storage().data;
+    try {
+      return this.storage().data;
+    } catch (error) {
+      this.log("Failed to fetch the projects.", error);
+      return [];
+    }
   }
 
   /**
@@ -52,20 +62,25 @@ class DatabaseHelper implements DatabaseInterface {
    * @returns a project or undefined
    */
   public find(id: string): Project | undefined {
-    // Get the storage
-    const storage: Data = this.storage();
+    try {
+      // Get the storage
+      const storage: Data = this.storage();
 
-    // If storage keys is 0 it means storage is empty
-    if (Object.keys(storage.data).length === 0) return undefined;
+      // If storage keys is 0 it means storage is empty
+      if (Object.keys(storage.data).length === 0) return undefined;
 
-    // Storage is an array of projects like { data: [ {id, title, ...}, ... ] }
-    const targetProject = storage.data.find((project) => project.id == id);
+      // Storage is an array of projects like { data: [ {id, title, ...}, ... ] }
+      const targetProject = storage.data.find((project) => project.id == id);
 
-    targetProject === undefined
-      ? this.log("Found no matched project.")
-      : this.log("Found a matched project.", targetProject);
+      targetProject === undefined
+        ? this.log("Found no matched project.")
+        : this.log("Found a matched project.", targetProject);
 
-    return targetProject;
+      return targetProject;
+    } catch (error) {
+      this.log("Failed to find the project.", error);
+      return undefined;
+    }
   }
 
   /**
@@ -74,18 +89,23 @@ class DatabaseHelper implements DatabaseInterface {
    * @returns ture if add process was successful.
    */
   public add(project: Project): boolean {
-    // Get the storage
-    const storage: Data = this.storage();
+    try {
+      // Get the storage
+      const storage: Data = this.storage();
 
-    // Add given project to the storage
-    storage.data = [...storage.data, project];
+      // Add given project to the storage
+      storage.data = [...storage.data, project];
 
-    // Update the storage
-    localStorage.setItem(this.key, JSON.stringify(storage));
+      // Update the storage
+      localStorage.setItem(this.key, JSON.stringify(storage));
 
-    this.log("Added a new project to the local storage.", this.storage());
+      this.log("Added a new project to the local storage.", this.storage());
 
-    return true;
+      return true;
+    } catch (error) {
+      this.log("Failed to add the project.", error);
+      return false;
+    }
   }
 
   /**
@@ -94,27 +114,32 @@ class DatabaseHelper implements DatabaseInterface {
    * @returns true if project was updated successfully.
    */
   public update(project: Project): boolean {
-    // Get the storage
-    const storage: Data = this.storage();
+    try {
+      // Get the storage
+      const storage: Data = this.storage();
 
-    // If storage keys is 0 it means storage is empty
-    if (Object.keys(storage).length === 0) return false;
+      // If storage keys is 0 it means storage is empty
+      if (Object.keys(storage).length === 0) return false;
 
-    // Find the index of given project
-    const index = storage.data.findIndex((p) => p.id === project.id);
+      // Find the index of given project
+      const index = storage.data.findIndex((p) => p.id === project.id);
 
-    // If index is less than 0, it means no matched is found.
-    if (index < 0) return false;
+      // If index is less than 0, it means no matched is found.
+      if (index < 0) return false;
 
-    // Update the project
-    storage.data[index] = project;
+      // Update the project
+      storage.data[index] = project;
 
-    // Update the storage
-    localStorage.setItem(this.key, JSON.stringify(storage));
+      // Update the storage
+      localStorage.setItem(this.key, JSON.stringify(storage));
 
-    this.log("Updated the storage.", this.storage());
+      this.log("Updated the storage.", this.storage());
 
-    return true;
+      return true;
+    } catch (error) {
+      this.log("Failed to update the project.", error);
+      return false;
+    }
   }
 
   /**
@@ -123,15 +148,20 @@ class DatabaseHelper implements DatabaseInterface {
    * @returns true if add/update was successful.
    */
   public addOrUpdate(project: Project): boolean {
-    let success = this.update(project);
+    try {
+      let success = this.update(project);
 
-    if (success) return success;
+      if (success) return success;
 
-    success = this.add(project);
+      success = this.add(project);
 
-    if (success) return success;
+      if (success) return success;
 
-    return false;
+      return false;
+    } catch (error) {
+      this.log("Failed to update the project.", error);
+      return false;
+    }
   }
 
   /**
@@ -140,21 +170,26 @@ class DatabaseHelper implements DatabaseInterface {
    * @returns true if project was deleted successfully.
    */
   public delete(id: string): boolean {
-    // Get the storage
-    const storage: Data = this.storage();
+    try {
+      // Get the storage
+      const storage: Data = this.storage();
 
-    // If storage keys is 0 it means storage is empty
-    if (Object.keys(storage.data).length === 0) return false;
+      // If storage keys is 0 it means storage is empty
+      if (Object.keys(storage.data).length === 0) return false;
 
-    // Delete target project with given id
-    storage.data = storage.data.filter((project) => project.id != id);
+      // Delete target project with given id
+      storage.data = storage.data.filter((project) => project.id != id);
 
-    // Update the storage
-    localStorage.setItem(this.key, JSON.stringify(storage));
+      // Update the storage
+      localStorage.setItem(this.key, JSON.stringify(storage));
 
-    this.log(`Deleted the project with id of ${id}`, this.storage());
+      this.log(`Deleted the project with id of ${id}`, this.storage());
 
-    return true;
+      return true;
+    } catch (error) {
+      this.log("Failed to delete the project.", error);
+      return false;
+    }
   }
 
   /**
@@ -162,10 +197,15 @@ class DatabaseHelper implements DatabaseInterface {
    * @returns true if storage was purged successfully.
    */
   public purge(): boolean {
-    localStorage.removeItem(this.key);
-    localStorage.setItem(this.key, this.defaultStorage);
-    this.log("Purged the storage.", this.storage());
-    return true;
+    try {
+      localStorage.removeItem(this.key);
+      localStorage.setItem(this.key, this.defaultStorage);
+      this.log("Purged the storage.", this.storage());
+      return true;
+    } catch (error) {
+      this.log("Failed to purge the storage.", error);
+      return false;
+    }
   }
 }
 
