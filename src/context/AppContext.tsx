@@ -1,5 +1,5 @@
 import { Context, createContext, useContext } from "react";
-import ApplicationContext from "../models/ApplicationContext";
+import ApplicationContext from "@/models/ApplicationContext";
 
 // Stores context data
 let AppContext: Context<ApplicationContext>;
