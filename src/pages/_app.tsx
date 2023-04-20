@@ -166,18 +166,30 @@ function App({ Component, pageProps }: AppProps) {
     setAppContext(value);
   }
 
+  /**
+   * Renders {@link InstallPrompt} or null based on {@link showInstallPrompt} value.
+   * @returns InstallPrompt component or null
+   */
+  function renderInstallPrompt(): React.ReactElement {
+    return (
+      <>
+        {showInstallPrompt ? (
+          <InstallPrompt
+            isOpen={showInstallPrompt.show}
+            platform={showInstallPrompt.platfrom}
+            onPromptClose={onPwaInstallPromptClose}
+          />
+        ) : null}
+      </>
+    );
+  }
+
   return (
     <ChakraProvider theme={theme}>
       <Fonts />
       <ApplicationWrapper appContext={appContext}>
         <MainLayout>
-          {showInstallPrompt ? (
-            <InstallPrompt
-              isOpen={showInstallPrompt.show}
-              platform={showInstallPrompt.platfrom}
-              onPromptClose={onPwaInstallPromptClose}
-            />
-          ) : null}
+          {renderInstallPrompt()}
           <Component {...pageProps} />
         </MainLayout>
       </ApplicationWrapper>
