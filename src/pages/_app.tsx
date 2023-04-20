@@ -2,7 +2,7 @@ import "@/styles/globals.sass";
 import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import ApplicationWrapper from "@/context/AppContext";
+import ApplicationWrapper from "@/models/context/AppContext";
 import ApplicationContext from "@/models/ApplicationContext";
 import { useState, SetStateAction, useEffect, useRef, useMemo } from "react";
 import MainLayout from "@/components/layout";
