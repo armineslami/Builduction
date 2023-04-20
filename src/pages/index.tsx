@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
   Center,
@@ -9,8 +10,8 @@ import {
   Button,
   Icon,
 } from "@chakra-ui/react";
-import ProjectRow from "@/components/project";
-import Empty from "@/components/empty";
+const ProjectRow = dynamic(() => import("@/components/project"));
+const Empty = dynamic(() => import("@/components/empty"));
 import Project from "@/models/Project";
 import { AiFillFolderAdd } from "react-icons/ai";
 import DatabaseHelper from "@/models/database/DatabaseHelper";

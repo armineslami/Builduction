@@ -6,12 +6,14 @@ import {
   Heading,
   HStack,
   Spacer,
-  IconButton,
   Icon,
   Button,
   useToast,
   UseToastOptions,
 } from "@chakra-ui/react";
+const IconButton = dynamic(() =>
+  import("@chakra-ui/react").then((mod) => mod.IconButton)
+);
 import ProjectForm from "@/components/project/form";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { AiOutlineArrowLeft } from "react-icons/ai";
@@ -19,11 +21,14 @@ import Project from "@/models/Project";
 import { useRouter } from "next/router";
 import DatabaseHelper from "@/models/database/DatabaseHelper";
 import { useState } from "react";
-import CalculationModal from "@/components/modal/calculation";
-import SaveModal from "@/components/modal/save";
-import DeleteModal from "@/components/modal/delete";
+const CalculationModal = dynamic(
+  () => import("@/components/modal/calculation")
+);
+const SaveModal = dynamic(() => import("@/components/modal/save"));
+const DeleteModal = dynamic(() => import("@/components/modal/delete"));
 import Calculator from "@/models/Calculator";
-import Loading from "@/components/loading";
+const Loading = dynamic(() => import("@/components/loading"));
+import dynamic from "next/dynamic";
 
 const ProjectPage: NextPage = () => {
   // Create an instance of database helper
