@@ -18,6 +18,5 @@ function useAppContext(): ApplicationContext {
   return useContext(AppContext);
 }
 
-export type { ApplicationContext };
 export { useAppContext };
 export default ApplicationWrapper;
