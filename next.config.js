@@ -5,6 +5,10 @@ const withPWA = require("next-pwa")({
   register: true,
   skipWaiting: true,
   disable: process.env.NODE_ENV === "development",
+  fallbacks: {
+    image: "/images/offline.webp",
+    font: "/fonts/IRANSansX-Regular.woff",
+  },
 });
 
 const nextConfig = withPWA({
