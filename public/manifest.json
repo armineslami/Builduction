@@ -2,6 +2,7 @@
     "theme_color": "#000000",
     "background_color": "#F7FAFC",
     "display": "standalone",
+    "orientation": "portrait",
     "scope": "/",
     "start_url": "/",
     "name": "Builduction",
