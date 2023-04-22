@@ -17,6 +17,7 @@ const Fallback: FunctionComponent = () => (
         }}
         minH="500px"
         p="16px"
+        bg="white"
       >
         <div className="center">
           <VStack spacing={12}>
