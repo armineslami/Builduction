@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 2095",
+    "start-secure": "local-ssl-proxy --key cert/dama-co.xyz.key --cert cert/dama-co.xyz.cer --source 2053 --target 2095",
     "lint": "next lint",
     "test": "jest --watch",
     "cypress": "cypress open",
