@@ -17,6 +17,7 @@ import { FunctionComponent } from "react";
 import { IoShareOutline } from "react-icons/io5";
 import { CgAddR } from "react-icons/cg";
 import { FiMoreVertical } from "react-icons/fi";
+import { MdInstallMobile } from "react-icons/md";
 
 type InstallPromptProps = {
   isOpen: boolean;
@@ -72,12 +73,13 @@ const InstallPrompt: FunctionComponent<InstallPromptProps> = ({
         </HStack>
         <HStack fontSize={fontSize}>
           <Text>۲- گزینه</Text>
-          <Text>Add to Home screen</Text>
+          <Text>Install app</Text>
+          <Icon as={MdInstallMobile} color="gray.900" mb={"4px !important"} />
           <Text>را انتخاب نمایید.</Text>
         </HStack>
         <HStack fontSize={fontSize}>
           <Text>۳- گزینه</Text>
-          <Text color={"blue.500"}>Add</Text>
+          <Text color={"blue.500"}>Ok</Text>
           <Text>را انتخاب نمایید.</Text>
         </HStack>
       </>
