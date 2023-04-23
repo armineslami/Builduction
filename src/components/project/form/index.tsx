@@ -23,108 +23,113 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
   onCalculate,
   onSave,
 }: ProjectFormProps) => {
+  const inputLandSize = useRef<HTMLInputElement>(null);
+  const inputDensityPercentage = useRef<HTMLInputElement>(null);
+  const inputFloorCount = useRef<HTMLInputElement>(null);
+  const inputWarehouseCount = useRef<HTMLInputElement>(null);
+  const inputWarehouseArea = useRef<HTMLInputElement>(null);
+  const inputBuildCostPerMeter = useRef<HTMLInputElement>(null);
+  const inputSalesPricePerMeter = useRef<HTMLInputElement>(null);
+  const inputDelictArea = useRef<HTMLInputElement>(null);
+  const inputDelictPenaltyPerMeter = useRef<HTMLInputElement>(null);
+  const inputBuilderPercentage = useRef<HTMLInputElement>(null);
+  const inputOver = useRef<HTMLInputElement>(null);
+  const inputPurchasePricePerMeter = useRef<HTMLInputElement>(null);
+  const inputLandPrice = useRef<HTMLInputElement>(null);
+  const inputOtherCosts = useRef<HTMLInputElement>(null);
+
   const submit = async (event: FormEvent) => {
-    readInputs(event);
+    event.preventDefault();
+    readInputs();
     onCalculate(project);
   };
 
   const save = async (event: FormEvent) => {
-    readInputs(event);
+    event.preventDefault();
+    readInputs();
     onSave(project);
   };
 
   /**
    * Reads value of form inputs and set them to the {@link project}.
-   * @param event - A form event to read inputs value from it.
    */
-  const readInputs = (event: FormEvent) => {
-    event.preventDefault();
-
-    const {
-      landSize,
-      densityPercentage,
-      floorCount,
-      warehouseCount,
-      warehouseArea,
-      buildCostPerMeter,
-      salesPricePerMeter,
-      delictArea,
-      delictPenaltyPerMeter,
-      builderPercentage,
-      over,
-      purchasePricePerMeter,
-      landPrice,
-      otherCosts,
-    } = (event.target as any).elements;
-
+  const readInputs = () => {
     project.landSize =
-      landSize?.value && landSize.value !== ""
-        ? Number.parseFloat(landSize.value)
+      inputLandSize.current?.value && inputLandSize.current.value !== ""
+        ? Number.parseFloat(inputLandSize.current.value)
         : undefined;
 
     project.densityPercentage =
-      densityPercentage?.value && densityPercentage.value !== ""
-        ? Number.parseFloat(densityPercentage.value)
+      inputDensityPercentage.current?.value &&
+      inputDensityPercentage.current.value !== ""
+        ? Number.parseFloat(inputDensityPercentage.current.value)
         : undefined;
 
     project.floorCount =
-      floorCount?.value && floorCount.value !== ""
-        ? Number.parseInt(floorCount.value)
+      inputFloorCount.current?.value && inputFloorCount.current.value !== ""
+        ? Number.parseInt(inputFloorCount.current.value)
         : undefined;
 
     project.warehouseCount =
-      warehouseCount?.value && warehouseCount.value !== ""
-        ? Number.parseInt(warehouseCount.value)
+      inputWarehouseCount.current?.value &&
+      inputWarehouseCount.current.value !== ""
+        ? Number.parseInt(inputWarehouseCount.current.value)
         : undefined;
 
     project.warehouseArea =
-      warehouseArea?.value && warehouseArea.value !== ""
-        ? Number.parseFloat(warehouseArea.value)
+      inputWarehouseArea.current?.value &&
+      inputWarehouseArea.current.value !== ""
+        ? Number.parseFloat(inputWarehouseArea.current.value)
         : undefined;
 
     project.buildCostPerMeter =
-      buildCostPerMeter?.value && buildCostPerMeter.value !== ""
-        ? Number.parseInt(buildCostPerMeter.value)
+      inputBuildCostPerMeter.current?.value &&
+      inputBuildCostPerMeter.current.value !== ""
+        ? Number.parseInt(inputBuildCostPerMeter.current.value)
         : undefined;
 
     project.salesPricePerMeter =
-      salesPricePerMeter?.value && salesPricePerMeter.value !== ""
-        ? Number.parseInt(salesPricePerMeter.value)
+      inputSalesPricePerMeter.current?.value &&
+      inputSalesPricePerMeter.current.value !== ""
+        ? Number.parseInt(inputSalesPricePerMeter.current.value)
         : undefined;
 
     project.delictArea =
-      delictArea?.value && delictArea.value !== ""
-        ? Number.parseFloat(delictArea.value)
+      inputDelictArea.current?.value && inputDelictArea.current.value !== ""
+        ? Number.parseFloat(inputDelictArea.current.value)
         : 0;
 
     project.delictPenaltyPerMeter =
-      delictPenaltyPerMeter?.value && delictPenaltyPerMeter.value !== ""
-        ? Number.parseInt(delictPenaltyPerMeter.value)
+      inputDelictPenaltyPerMeter.current &&
+      inputDelictPenaltyPerMeter.current.value !== ""
+        ? Number.parseInt(inputDelictPenaltyPerMeter.current.value)
         : 0;
 
     project.builderPercentage =
-      builderPercentage?.value && builderPercentage.value !== ""
-        ? Number.parseFloat(builderPercentage.value)
+      inputBuilderPercentage.current?.value &&
+      inputBuilderPercentage.current.value !== ""
+        ? Number.parseFloat(inputBuilderPercentage.current.value)
         : undefined;
 
     project.over =
-      over?.value && over.value !== ""
-        ? Number.parseInt(over.value)
+      inputOver.current?.value && inputOver.current.value !== ""
+        ? Number.parseFloat(inputOver.current.value)
         : undefined;
 
     project.purchasePricePerMeter =
-      purchasePricePerMeter?.value && purchasePricePerMeter.value !== ""
-        ? Number.parseInt(purchasePricePerMeter.value)
+      inputPurchasePricePerMeter.current &&
+      inputPurchasePricePerMeter.current.value !== ""
+        ? Number.parseInt(inputPurchasePricePerMeter.current.value)
         : undefined;
 
     project.landPrice =
-      landPrice?.value && landPrice.value !== ""
-        ? Number.parseInt(landPrice.value)
+      inputLandPrice.current?.value && inputLandPrice.current.value !== ""
+        ? Number.parseInt(inputLandPrice.current.value)
         : undefined;
 
     project.otherCosts =
-      otherCosts?.value && otherCosts.value !== ""
-        ? Number.parseInt(otherCosts.value)
+      inputOtherCosts.current?.value && inputOtherCosts.current.value !== ""
+        ? Number.parseInt(inputOtherCosts.current.value)
         : 0;
   };
 
@@ -153,6 +158,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
             {renderHeading("متراژ زمین")}
             <Input
               id="landSize"
+              ref={inputLandSize}
               placeholder="متر"
               defaultValue={project?.landSize}
               type={"number"}
@@ -165,6 +171,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
             {renderHeading("درصد تراکم")}
             <Input
               id="densityPercentage"
+              ref={inputDensityPercentage}
               placeholder="درصد"
               defaultValue={project?.densityPercentage}
               type={"number"}
@@ -177,6 +184,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
             {renderHeading("تعداد طبقات")}
             <Input
               id="floorCount"
+              ref={inputFloorCount}
               placeholder="تعداد"
               defaultValue={project?.floorCount}
               type={"number"}
@@ -188,6 +196,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
             {renderHeading("تعداد انباری")}
             <Input
               id="warehouseCount"
+              ref={inputWarehouseCount}
               placeholder="تعداد"
               defaultValue={project?.warehouseCount}
               type={"number"}
@@ -199,6 +208,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
             {renderHeading("متراژ هر انباری")}
             <Input
               id="warehouseArea"
+              ref={inputWarehouseArea}
               placeholder="متر"
               defaultValue={project?.warehouseArea}
               type={"number"}
@@ -211,6 +221,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
             {renderHeading("هزینه ساخت هر متر")}
             <Input
               id="buildCostPerMeter"
+              ref={inputBuildCostPerMeter}
               placeholder="تومان"
               defaultValue={project?.buildCostPerMeter}
               type={"number"}
@@ -222,6 +233,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
             {renderHeading("قیمت فروش هر متر")}
             <Input
               id="salesPricePerMeter"
+              ref={inputSalesPricePerMeter}
               placeholder="تومان"
               defaultValue={project?.salesPricePerMeter}
               type={"number"}
@@ -233,6 +245,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
             {renderHeading("متراژ خلاف هر طبقه")}
             <Input
               id="delictArea"
+              ref={inputDelictArea}
               placeholder="متر"
               defaultValue={project?.delictArea}
               type={"number"}
@@ -245,6 +258,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
             {renderHeading("هزینه هر متر خلاف")}
             <Input
               id="delictPenaltyPerMeter"
+              ref={inputDelictPenaltyPerMeter}
               placeholder="تومان"
               defaultValue={project?.delictPenaltyPerMeter}
               type={"number"}
@@ -256,6 +270,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
             {renderHeading("درصد مشارکت سازنده")}
             <Input
               id="builderPercentage"
+              ref={inputBuilderPercentage}
               placeholder="درصد"
               defaultValue={project?.builderPercentage}
               type={"number"}
@@ -268,6 +283,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
             {renderHeading("اُوِر")}
             <Input
               id="over"
+              ref={inputOver}
               placeholder="تومان"
               defaultValue={project?.over}
               type={"number"}
@@ -279,6 +295,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
             {renderHeading("قیمت خرید هر متر زمین")}
             <Input
               id="purchasePricePerMeter"
+              ref={inputPurchasePricePerMeter}
               placeholder="تومان"
               defaultValue={project?.purchasePricePerMeter}
               type={"number"}
@@ -302,6 +319,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
             {renderHeading("قیمت کل زمین")}
             <Input
               id="landPrice"
+              ref={inputLandPrice}
               placeholder="تومان"
               defaultValue={project?.landPrice}
               type={"number"}
@@ -313,6 +331,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
             {renderHeading("سایر هزینه‌ها")}
             <Input
               id="otherCosts"
+              ref={inputOtherCosts}
               placeholder="تومان"
               defaultValue={project?.otherCosts}
               type={"number"}
