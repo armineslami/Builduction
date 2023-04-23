@@ -23,112 +23,108 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
   onCalculate,
   onSave,
 }: ProjectFormProps) => {
-  const inputLandSize = useRef<HTMLInputElement>(null);
-  const inputDensityPercentage = useRef<HTMLInputElement>(null);
-  const inputFloorCount = useRef<HTMLInputElement>(null);
-  const inputWarehouseCount = useRef<HTMLInputElement>(null);
-  const inputWarehouseArea = useRef<HTMLInputElement>(null);
-  const inputBuildCostPerMeter = useRef<HTMLInputElement>(null);
-  const inputSalesPricePerMeter = useRef<HTMLInputElement>(null);
-  const inputDelictArea = useRef<HTMLInputElement>(null);
-  const inputDelictPenaltyPerMeter = useRef<HTMLInputElement>(null);
-  const inputBuilderPercentage = useRef<HTMLInputElement>(null);
-  const inputOver = useRef<HTMLInputElement>(null);
-  const inputPurchasePricePerMeter = useRef<HTMLInputElement>(null);
-  const inputLandPrice = useRef<HTMLInputElement>(null);
-  const inputOtherCosts = useRef<HTMLInputElement>(null);
-
-  const submit = async (e: FormEvent) => {
-    e.preventDefault();
-    readInputs();
+  const submit = async (event: FormEvent) => {
+    readInputs(event);
     onCalculate(project);
   };
 
-  const save = async (e: FormEvent) => {
-    e.preventDefault();
-    readInputs();
+  const save = async (event: FormEvent) => {
+    readInputs(event);
     onSave(project);
   };
 
   /**
-   * Reads each input ref value and set them to the {@link project}.
+   * Reads value of form inputs and set them to the {@link project}.
+   * @param event - A form event to read inputs value from it.
    */
-  const readInputs = () => {
+  const readInputs = (event: FormEvent) => {
+    event.preventDefault();
+
+    const {
+      landSize,
+      densityPercentage,
+      floorCount,
+      warehouseCount,
+      warehouseArea,
+      buildCostPerMeter,
+      salesPricePerMeter,
+      delictArea,
+      delictPenaltyPerMeter,
+      builderPercentage,
+      over,
+      purchasePricePerMeter,
+      landPrice,
+      otherCosts,
+    } = (event.target as any).elements;
+
     project.landSize =
-      inputLandSize.current?.value && inputLandSize.current.value !== ""
-        ? Number.parseFloat(inputLandSize.current.value)
+      landSize?.value && landSize.value !== ""
+        ? Number.parseFloat(landSize.value)
         : undefined;
 
     project.densityPercentage =
-      inputDensityPercentage.current?.value &&
-      inputDensityPercentage.current.value !== ""
-        ? Number.parseFloat(inputDensityPercentage.current.value)
+      densityPercentage?.value && densityPercentage.value !== ""
+        ? Number.parseFloat(densityPercentage.value)
         : undefined;
 
     project.floorCount =
-      inputFloorCount.current?.value && inputFloorCount.current.value !== ""
-        ? Number.parseInt(inputFloorCount.current.value)
+      floorCount?.value && floorCount.value !== ""
+        ? Number.parseInt(floorCount.value)
         : undefined;
 
     project.warehouseCount =
-      inputWarehouseCount.current?.value &&
-      inputWarehouseCount.current.value !== ""
-        ? Number.parseInt(inputWarehouseCount.current.value)
+      warehouseCount?.value && warehouseCount.value !== ""
+        ? Number.parseInt(warehouseCount.value)
         : undefined;
 
     project.warehouseArea =
-      inputWarehouseArea.current?.value &&
-      inputWarehouseArea.current.value !== ""
-        ? Number.parseFloat(inputWarehouseArea.current.value)
+      warehouseArea?.value && warehouseArea.value !== ""
+        ? Number.parseFloat(warehouseArea.value)
         : undefined;
 
     project.buildCostPerMeter =
-      inputBuildCostPerMeter.current?.value &&
-      inputBuildCostPerMeter.current.value !== ""
-        ? Number.parseInt(inputBuildCostPerMeter.current.value)
+      buildCostPerMeter?.value && buildCostPerMeter.value !== ""
+        ? Number.parseInt(buildCostPerMeter.value)
         : undefined;
 
     project.salesPricePerMeter =
-      inputSalesPricePerMeter.current?.value &&
-      inputSalesPricePerMeter.current.value !== ""
-        ? Number.parseInt(inputSalesPricePerMeter.current.value)
+      salesPricePerMeter?.value && salesPricePerMeter.value !== ""
+        ? Number.parseInt(salesPricePerMeter.value)
         : undefined;
 
     project.delictArea =
-      inputDelictArea.current?.value && inputDelictArea.current.value !== ""
-        ? Number.parseFloat(inputDelictArea.current.value)
+      delictArea?.value && delictArea.value !== ""
+        ? Number.parseFloat(delictArea.value)
         : 0;
 
     project.delictPenaltyPerMeter =
-      inputDelictPenaltyPerMeter.current &&
-      inputDelictPenaltyPerMeter.current.value !== ""
-        ? Number.parseInt(inputDelictPenaltyPerMeter.current.value)
+      delictPenaltyPerMeter?.value && delictPenaltyPerMeter.value !== ""
+        ? Number.parseInt(delictPenaltyPerMeter.value)
         : 0;
 
     project.builderPercentage =
-      inputBuilderPercentage.current?.value &&
-      inputBuilderPercentage.current.value !== ""
-        ? Number.parseFloat(inputBuilderPercentage.current.value)
+      builderPercentage?.value && builderPercentage.value !== ""
+        ? Number.parseFloat(builderPercentage.value)
         : undefined;
 
-    project.over = inputOver.current?.value
-      ? Number.parseInt(inputOver.current.value)
-      : undefined;
+    project.over =
+      over?.value && over.value !== ""
+        ? Number.parseInt(over.value)
+        : undefined;
 
     project.purchasePricePerMeter =
-      inputPurchasePricePerMeter.current &&
-      inputPurchasePricePerMeter.current.value !== ""
-        ? Number.parseInt(inputPurchasePricePerMeter.current.value)
+      purchasePricePerMeter?.value && purchasePricePerMeter.value !== ""
+        ? Number.parseInt(purchasePricePerMeter.value)
         : undefined;
 
     project.landPrice =
-      inputLandPrice.current?.value && inputLandPrice.current.value !== ""
-        ? Number.parseInt(inputLandPrice.current.value)
+      landPrice?.value && landPrice.value !== ""
+        ? Number.parseInt(landPrice.value)
         : undefined;
 
     project.otherCosts =
-      inputOtherCosts.current?.value && inputOtherCosts.current.value !== ""
-        ? Number.parseInt(inputOtherCosts.current.value)
+      otherCosts?.value && otherCosts.value !== ""
+        ? Number.parseInt(otherCosts.value)
         : 0;
   };
 
@@ -156,138 +152,138 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
           <GridItem colSpan={6} rowSpan={1}>
             {renderHeading("متراژ زمین")}
             <Input
+              id="landSize"
               placeholder="متر"
               defaultValue={project?.landSize}
               type={"number"}
               inputMode={"decimal"}
               min={"0"}
               step={".01"}
-              ref={inputLandSize}
             />
           </GridItem>
           <GridItem colSpan={6} rowSpan={1}>
             {renderHeading("درصد تراکم")}
             <Input
+              id="densityPercentage"
               placeholder="درصد"
               defaultValue={project?.densityPercentage}
               type={"number"}
               inputMode={"decimal"}
               min={"0"}
               step={".01"}
-              ref={inputDensityPercentage}
             />
           </GridItem>
           <GridItem colSpan={4} rowSpan={1}>
             {renderHeading("تعداد طبقات")}
             <Input
+              id="floorCount"
               placeholder="تعداد"
               defaultValue={project?.floorCount}
               type={"number"}
               inputMode={"numeric"}
               min={"0"}
-              ref={inputFloorCount}
             />
           </GridItem>
           <GridItem colSpan={4} rowSpan={1}>
             {renderHeading("تعداد انباری")}
             <Input
+              id="warehouseCount"
               placeholder="تعداد"
               defaultValue={project?.warehouseCount}
               type={"number"}
               inputMode={"numeric"}
               min={"0"}
-              ref={inputWarehouseCount}
             />
           </GridItem>
           <GridItem colSpan={4} rowSpan={1}>
             {renderHeading("متراژ هر انباری")}
             <Input
+              id="warehouseArea"
               placeholder="متر"
               defaultValue={project?.warehouseArea}
               type={"number"}
               inputMode={"decimal"}
               min={"0"}
               step={".01"}
-              ref={inputWarehouseArea}
             />
           </GridItem>
           <GridItem colSpan={6} rowSpan={1}>
             {renderHeading("هزینه ساخت هر متر")}
             <Input
+              id="buildCostPerMeter"
               placeholder="تومان"
               defaultValue={project?.buildCostPerMeter}
               type={"number"}
               inputMode={"numeric"}
               min={"0"}
-              ref={inputBuildCostPerMeter}
             />
           </GridItem>
           <GridItem colSpan={6} rowSpan={1}>
             {renderHeading("قیمت فروش هر متر")}
             <Input
+              id="salesPricePerMeter"
               placeholder="تومان"
               defaultValue={project?.salesPricePerMeter}
               type={"number"}
               inputMode={"numeric"}
               min={"0"}
-              ref={inputSalesPricePerMeter}
             />
           </GridItem>
           <GridItem colSpan={6} rowSpan={1}>
             {renderHeading("متراژ خلاف هر طبقه")}
             <Input
+              id="delictArea"
               placeholder="متر"
               defaultValue={project?.delictArea}
               type={"number"}
               inputMode={"decimal"}
               min={"0"}
               step={".01"}
-              ref={inputDelictArea}
             />
           </GridItem>
           <GridItem colSpan={6} rowSpan={1}>
             {renderHeading("هزینه هر متر خلاف")}
             <Input
+              id="delictPenaltyPerMeter"
               placeholder="تومان"
               defaultValue={project?.delictPenaltyPerMeter}
               type={"number"}
               inputMode={"numeric"}
               min={"0"}
-              ref={inputDelictPenaltyPerMeter}
             />
           </GridItem>
           <GridItem colSpan={6} rowSpan={1}>
             {renderHeading("درصد مشارکت سازنده")}
             <Input
+              id="builderPercentage"
               placeholder="درصد"
               defaultValue={project?.builderPercentage}
               type={"number"}
               inputMode={"decimal"}
               min={"0"}
               step={".01"}
-              ref={inputBuilderPercentage}
             />
           </GridItem>
           <GridItem colSpan={6} rowSpan={1}>
             {renderHeading("اُوِر")}
             <Input
+              id="over"
               placeholder="تومان"
               defaultValue={project?.over}
               type={"number"}
               inputMode={"numeric"}
               min={"0"}
-              ref={inputOver}
             />
           </GridItem>
           <GridItem colSpan={5} rowSpan={1}>
             {renderHeading("قیمت خرید هر متر زمین")}
             <Input
+              id="purchasePricePerMeter"
               placeholder="تومان"
               defaultValue={project?.purchasePricePerMeter}
               type={"number"}
               inputMode={"numeric"}
               min={"0"}
-              ref={inputPurchasePricePerMeter}
             />
           </GridItem>
           <GridItem colSpan={2} rowSpan={1} position="relative">
@@ -305,23 +301,23 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
           <GridItem colSpan={5} rowSpan={1}>
             {renderHeading("قیمت کل زمین")}
             <Input
+              id="landPrice"
               placeholder="تومان"
               defaultValue={project?.landPrice}
               type={"number"}
               inputMode={"numeric"}
               min={"0"}
-              ref={inputLandPrice}
             />
           </GridItem>
           <GridItem colSpan={12} rowSpan={1}>
             {renderHeading("سایر هزینه‌ها")}
             <Input
+              id="otherCosts"
               placeholder="تومان"
               defaultValue={project?.otherCosts}
               type={"number"}
               inputMode={"numeric"}
               min={"0"}
-              ref={inputOtherCosts}
             />
           </GridItem>
 
