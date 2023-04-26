@@ -6,6 +6,7 @@ interface LocalStorageInterface {
 
 type LocalStorageUserDefaults = {
   showPwaInstallPrompt: boolean;
+  notificationPermission: NotificationPermission;
 };
 
 export type { LocalStorageUserDefaults };
