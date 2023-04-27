@@ -220,7 +220,11 @@ function App({ Component, pageProps }: AppProps) {
         });
       });
     }
-  }, [localStorageHelper]); // localStorageHelper is a dependency for useEffect hook
+  }, [
+    localStorageHelper,
+    isAppAllowedToShowNotificationPermissionRequestWindow,
+    sendSubscription,
+  ]); // Dependencies of useEffect hook
 
   /**
    * Gets called when pwa install prompt is closed.
@@ -247,9 +251,9 @@ function App({ Component, pageProps }: AppProps) {
    * Creates a subscription and sends it to backend for storage.
    * @param registration - A service worker registration instance to use it for creating a subscription.
    */
-  const sendSubscription = async (
+  async function sendSubscription(
     registration: ServiceWorkerRegistration | undefined
-  ) => {
+  ) {
     if (!registration) {
       return;
     }
@@ -297,7 +301,7 @@ function App({ Component, pageProps }: AppProps) {
       .catch((error) => {
         console.error(error);
       });
-  };
+  }
 
   /**
    * Updates the isNotificationPermissionRequested value in the storage.
