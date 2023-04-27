@@ -92,6 +92,7 @@ const InstallPrompt: FunctionComponent<InstallPromptProps> = ({
         onClose={() => onPromptClose(isCheckboxChecked)}
         size="full"
         isOpen={isOpen}
+        trapFocus={false}
       >
         <ModalOverlay />
         <ModalContent>
