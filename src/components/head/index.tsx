@@ -39,10 +39,10 @@ const Head = () => {
       <meta name="mobile-web-app-capable" content="yes" />
       <meta name="apple-touch-fullscreen" content="yes" />
       <meta name="apple-mobile-web-app-title" content="Builduction" />
-      <meta
+      {/* <meta
         name="apple-mobile-web-app-status-bar-style"
         content="black-translucent"
-      />
+      /> */}
 
       {/* PWA Splash Screen For iOS */}
       {/* https://progressier.com/pwa-icons-and-ios-splash-screen-generator */}
