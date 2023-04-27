@@ -28,27 +28,34 @@ self.addEventListener("notificationclick", function (event) {
   );
 });
 
-// self.addEventListener('pushsubscriptionchange', function(event) {
-//   event.waitUntil(
-//       Promise.all([
-//           Promise.resolve(event.oldSubscription ? deleteSubscription(event.oldSubscription) : true),
-//           Promise.resolve(event.newSubscription ? event.newSubscription : subscribePush(registration))
-//               .then(function(sub) { return saveSubscription(sub) })
-//       ])
-//   )
-// })
-
-// self.addEventListener('pushsubscriptionchange', function(event) {
-//   event.waitUntil(
-//     fetch('https://pushpad.xyz/pushsubscriptionchange', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({
-//         old_endpoint: event.oldSubscription ? event.oldSubscription.endpoint : null,
-//         new_endpoint: event.newSubscription ? event.newSubscription.endpoint : null,
-//         new_p256dh: event.newSubscription ? event.newSubscription.toJSON().keys.p256dh : null,
-//         new_auth: event.newSubscription ? event.newSubscription.toJSON().keys.auth : null
-//       })
-//     })
-//   );
-// });
+self.addEventListener("pushsubscriptionchange", function (event) {
+  console.log("Push subscription endpoint is chaned.");
+  event.waitUntil(
+    fetch(
+      process.env.NEXT_PUBLIC_HOST_NAME +
+        ":" +
+        process.env.NEXT_PUBLIC_API_PORT +
+        "/update",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          oldSubscription: event.oldSubscription,
+          newSubscription: event.newSubscription,
+          // oldEndpoint: event.oldSubscription
+          //   ? event.oldSubscription.endpoint
+          //   : null,
+          // newEndpoint: event.newSubscription
+          //   ? event.newSubscription.endpoint
+          //   : null,
+          // new_p256dh: event.newSubscription
+          //   ? event.newSubscription.toJSON().keys.p256dh
+          //   : null,
+          // new_auth: event.newSubscription
+          //   ? event.newSubscription.toJSON().keys.auth
+          //   : null,
+        }),
+      }
+    )
+  );
+});

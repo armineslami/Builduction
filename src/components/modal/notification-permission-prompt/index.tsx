@@ -2,20 +2,18 @@ import {
   Button,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
   ModalOverlay,
   Text,
 } from "@chakra-ui/react";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useRef } from "react";
 
 type NotificationPermissionPromptProps = {
   isOpen: boolean;
   onPromptClose: () => void;
-  onPermissionDenied: () => void;
-  onPermissionGained: () => void;
+  onConfirm: () => void;
 };
 
 const NotificationPermissionPrompt: FunctionComponent<
@@ -23,32 +21,38 @@ const NotificationPermissionPrompt: FunctionComponent<
 > = ({
   isOpen,
   onPromptClose,
-  onPermissionDenied,
-  onPermissionGained,
+  onConfirm,
 }: NotificationPermissionPromptProps) => {
-  // Font size of texts
-  const fontSize = "0.8rem";
-
   return (
     <>
-      <Modal onClose={onPromptClose} isOpen={isOpen}>
+      <Modal
+        onClose={onPromptClose}
+        isOpen={isOpen}
+        trapFocus={false}
+        isCentered
+        closeOnOverlayClick={false}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
             <Text>درخواست دسترسی</Text>
           </ModalHeader>
-          <ModalCloseButton />
           <ModalBody>
-            <Text>
-              آیا به نرم افزار دسترسی لازم برای ارسال ناتیفیکیشن را می‌دهید؟
+            <Text fontSize={"0.85rem"} lineHeight={"1.5rem"}>
+              نرم افزار برای ارسال ناتیفیکیشن به تایید شما برای دسترسی احتیاج
+              دارد. پس از بستن این پنجره درخواست دسترسی برای شما نمایش داده
+              خواهد شده که در صورت تمایل به دریافت ناتیفیکشن کافیست گزینه Allow
+              را انتخاب نمایید.
             </Text>
           </ModalBody>
           <ModalFooter>
-            <Button variant="ghost" onClick={onPermissionDenied}>
-              خیر
-            </Button>
-            <Button className="blackButton" mr={3} onClick={onPermissionGained}>
-              بله
+            <Button
+              className="blackButton"
+              width={"100%"}
+              mr={3}
+              onClick={onConfirm}
+            >
+              متوجه شدم
             </Button>
           </ModalFooter>
         </ModalContent>
