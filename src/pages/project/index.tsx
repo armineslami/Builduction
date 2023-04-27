@@ -211,7 +211,7 @@ const ProjectPage: NextPage = () => {
             fontWeight="bold"
             className="truncate"
           >
-            {project.title ?? "محاسبه"}
+            {project.title ?? "پروژه جدید"}
           </Heading>
           <Spacer />
           {showDeleteButton ? (
