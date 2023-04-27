@@ -10,7 +10,7 @@ class LocalStorageHelper implements LocalStorageInterface {
   private userDefaults: LocalStorageUserDefaults = {
     showPwaInstallPrompt: true,
     isNotificationPermissionRequested: false,
-    appId: Math.random().toString(16).slice(-4),
+    appId: Math.random().toString(16).slice(2),
   };
 
   constructor() {
