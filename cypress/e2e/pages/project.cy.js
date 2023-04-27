@@ -3,8 +3,16 @@
 // set local reference to lodash and jquery
 const { _, $ } = Cypress;
 
+import LocalStorageHelper from "../../../src/models/local-storage/LocalStorageHelper";
+
 describe("Project Page", () => {
   beforeEach(() => {
+    const localStorageHelper = new LocalStorageHelper();
+    const config = localStorageHelper.fetch();
+    localStorageHelper.update({
+      ...config,
+      isNotificationPermissionRequested: true,
+    });
     cy.visit("http://localhost:2095/project");
   });
 

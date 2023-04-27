@@ -1,7 +1,15 @@
 /// <reference types="cypress" />
 
+import LocalStorageHelper from "../../../src/models/local-storage/LocalStorageHelper";
+
 describe("Home Page", () => {
   beforeEach(() => {
+    const localStorageHelper = new LocalStorageHelper();
+    const config = localStorageHelper.fetch();
+    localStorageHelper.update({
+      ...config,
+      isNotificationPermissionRequested: true,
+    });
     cy.visit("http://localhost:2095");
   });
 
@@ -17,7 +25,7 @@ describe("Home Page", () => {
     it("should have a text", () => {
       cy.get("p:first")
         .should("be.visible")
-        .should("have.text", "پروژه‌ای وجود ندارد");
+        .should("have.text", "پروژه‌ای ندارید");
     });
   });
 
