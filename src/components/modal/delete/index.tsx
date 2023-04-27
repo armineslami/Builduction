@@ -30,7 +30,7 @@ const DeleteModal: FunctionComponent<SaveModalProps> = ({
 
   return (
     <>
-      <ChakraModal isOpen={isOpen} onClose={onClose}>
+      <ChakraModal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent bg={"#F7FAFC"}>
           <ModalHeader>
