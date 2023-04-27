@@ -33,10 +33,19 @@ const direction = "rtl";
 const theme = extendTheme({ direction, fonts });
 
 function App({ Component, pageProps }: AppProps) {
+  /**
+   * This helper is going to be used to save user defaults into the storage.
+   * The reason of using useMemo is to fix eslint warning that says:
+   * The 'localStorageHelper' object construction makes the dependencies of useEffect Hook change on every render.
+   */
+  const localStorageHelper = useMemo(() => {
+    return new LocalStorageHelper();
+  }, []);
+
   // Creates default config for the app
   const config: ApplicationContext = {
-    version: "1.0",
-    debug: false,
+    appId: localStorageHelper.fetch().appId,
+    version: process.env.NEXT_PUBLIC_APP_VERSION!,
     update,
   };
 
@@ -72,16 +81,6 @@ function App({ Component, pageProps }: AppProps) {
 
   // A flag to check if PWA install prompt has appeared or not.
   let didPwaInstallPromptAppear = useRef(false);
-
-  /**
-   * This helper is going to be used to save user defaults such as showing or not showing
-   * pwa install prompt into the storage.
-   * The reason of using useMemo is to fix eslint warning that says:
-   * The 'localStorageHelper' object construction makes the dependencies of useEffect Hook change on every render.
-   */
-  const localStorageHelper = useMemo(() => {
-    return new LocalStorageHelper();
-  }, []);
 
   /**
    * In this hook, we have access to window and navigator instances.
@@ -184,10 +183,6 @@ function App({ Component, pageProps }: AppProps) {
         // If no registration or pushManager is found, return!. This happens on safari. But in iOS when the app is
         // added to the home screen everything is good to go!.
         if (!registration || !registration.pushManager) {
-          console.log(
-            "registration.PushManager is not found.",
-            registration.pushManager
-          );
           return;
         }
 
@@ -204,15 +199,12 @@ function App({ Component, pageProps }: AppProps) {
             ) //- 5 * 60 * 1000
           ) {
             // If we are here it means user has valid subscription.
-            console.log("Client is subscribed.", subscription);
             subscribed = true;
           } else {
-            console.log("Client is NOT subscribed.");
             subscribed = false;
           }
 
           // Save registration into the state.
-          console.log("Saving registration", registration);
           setServiceWorkerRegistration(registration);
 
           // Check if the app is allowed to show native notification permission request window.
@@ -259,10 +251,6 @@ function App({ Component, pageProps }: AppProps) {
     registration: ServiceWorkerRegistration | undefined
   ) => {
     if (!registration) {
-      console.log(
-        "Registration is not valid so clinet can not subscribe.",
-        registration
-      );
       return;
     }
 
@@ -283,11 +271,8 @@ function App({ Component, pageProps }: AppProps) {
        * because in chrome it's denied but in iOS it's default so we just try to subscribe and catch any possible error.
        * If we get error it means we can't create a valid subscription so we return from here.
        */
-      console.log(err);
       return;
     }
-
-    console.log("Sending subscription to backend", subscription);
 
     // Send subscription to the backend
     await fetch(
@@ -300,7 +285,10 @@ function App({ Component, pageProps }: AppProps) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(subscription),
+        body: JSON.stringify({
+          subscription,
+          appId: config.appId,
+        }),
       }
     )
       .then((result) => {
@@ -331,8 +319,7 @@ function App({ Component, pageProps }: AppProps) {
   const onNotificationPermissionPromptClosed = async () => {
     setShowNotificationPermissionWindow(false);
     // Triggers a native window  to request permission to send notifications
-    const permission = await window.Notification.requestPermission();
-    console.log("Client given permission:", permission);
+    await window.Notification.requestPermission();
     updateStorageWithNotificationPermissionRequest(true);
     sendSubscription(serviceWorkerRegistration);
   };
@@ -342,20 +329,8 @@ function App({ Component, pageProps }: AppProps) {
    * @returns true if app has never showed notification permission request windows.
    */
   function isAppAllowedToShowNotificationPermissionRequestWindow(): boolean {
-    console.log(
-      "Checking if app is allowed to show notification permission request window."
-    );
     const userDefaults: LocalStorageUserDefaults = localStorageHelper.fetch();
     return !userDefaults.isNotificationPermissionRequested;
-    // if (userDefaults.isNotificationPermissionRequested === false) {
-    //   setShowNotificationPermissionWindow(true);
-    // } else if (subscribed === false) {
-    //   /**
-    //    * Sometimes app may have granted/denied permission but for network issues app
-    //    * could not subscribe successfully. So we should just try to subscribe again.
-    //    */
-    //   sendSubscription(registration);
-    // }
   }
 
   /**

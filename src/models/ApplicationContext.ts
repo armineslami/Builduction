@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 
 interface ApplicationContext {
-    version: string,
-    debug: boolean,
-    update: Dispatch<SetStateAction<ApplicationContext>>
+  appId: string;
+  version: string;
+  update: Dispatch<SetStateAction<ApplicationContext>>;
 }
 
 export default ApplicationContext;
