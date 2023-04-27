@@ -94,7 +94,7 @@ class DatabaseHelper implements DatabaseInterface {
       const storage: Data = this.storage();
 
       // Add given project to the storage
-      storage.data = [...storage.data, project];
+      storage.data = [project, ...storage.data];
 
       // Update the storage
       localStorage.setItem(this.key, JSON.stringify(storage));
