@@ -6,7 +6,6 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton,
   Button,
   Text,
 } from "@chakra-ui/react";
@@ -36,7 +35,6 @@ const DeleteModal: FunctionComponent<SaveModalProps> = ({
           <ModalHeader>
             <Text>حذف پروژه</Text>
           </ModalHeader>
-          <ModalCloseButton />
           <ModalBody>
             <Text>آیا از حذف پروژه خود اطمینان دارید؟</Text>
           </ModalBody>
