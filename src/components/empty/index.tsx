@@ -5,7 +5,7 @@ import { FunctionComponent } from "react";
 const Empty: FunctionComponent = () => {
   return (
     <div className="center">
-      <VStack w="200px" h="200px" spacing={4}>
+      <VStack w="200px" spacing={4}>
         <Image
           priority={true}
           alt="empty"
@@ -13,7 +13,17 @@ const Empty: FunctionComponent = () => {
           width={64}
           height={64}
         />
-        <Text fontSize={"0.8rem"}>پروژه‌ای وجود ندارد</Text>
+        <Text fontSize={"0.85rem"} fontWeight={"bold"} textAlign={"center"}>
+          پروژه‌ای ندارید
+        </Text>
+        <Text
+          fontSize={"0.8rem"}
+          minWidth={"300px"}
+          textAlign={"center"}
+          mt={"4px !important"}
+        >
+          با انتخاب گزینه افزودن، پروژه جدیدی ایجاد کنید
+        </Text>
       </VStack>
     </div>
   );
