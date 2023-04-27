@@ -3,7 +3,7 @@ import { FunctionComponent } from "react";
 
 const Footer: FunctionComponent<any> = () => {
   return (
-    <Center>
+    <Center pb={"32px"} mt={"8px"}>
       <Text fontSize="0.7rem" mt="8px" color="gray.500">
         ایجاد شده توسط{" "}
         <Link
