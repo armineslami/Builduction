@@ -12,9 +12,7 @@ import { LocalStorageUserDefaults } from "@/models/local-storage/LocalStorageInt
 const InstallPrompt = dynamic(
   () => import("@/components/modal/install-prompt")
 );
-const NotificationPermissionPrompt = dynamic(
-  () => import("@/components/modal/notification-permission-prompt")
-);
+import NotificationPermissionPrompt from "@/components/modal/notification-permission-prompt";
 
 // Sets custom fonts
 const normal = `'IRANSansX-Normal', sans-serif`;
