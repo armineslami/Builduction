@@ -245,7 +245,7 @@ function App({ Component, pageProps }: AppProps) {
   };
 
   /**
-   * Creates a subscription and sends it to backend for storage.
+   * Creates a subscription and sends it to the backend for storage.
    * @param registration - A service worker registration instance to use it for creating a subscription.
    */
   const sendSubscription = async (
@@ -257,8 +257,7 @@ function App({ Component, pageProps }: AppProps) {
 
     /**
      * Create a subscription using server public key. This key is currently saved into .env
-     * as NEXT_PUBLIC_WEB_PUSH_KEY and despite it's public, we may need to remove it from .env for security issues.
-     * One solution could be to use getStaticProps and use process.env.KEY on server side.
+     * as NEXT_PUBLIC_WEB_PUSH_KEY and despite it's public, on production we may need to consider security issues.
      */
     let subscription = null;
     try {
@@ -275,6 +274,8 @@ function App({ Component, pageProps }: AppProps) {
       return;
     }
 
+    const dataToPost = JSON.stringify({ subscription, appId: config.appId });
+
     // Send subscription to the backend
     await fetch(
       process.env.NEXT_PUBLIC_HOST_NAME +
@@ -283,21 +284,12 @@ function App({ Component, pageProps }: AppProps) {
         "/subscribe",
       {
         method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          subscription,
-          appId: config.appId,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: dataToPost,
       }
     )
-      .then((result) => {
-        console.log("Subscribe result:", result);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      .then((result) => console.log("Subscribe result:", result))
+      .catch((error) => console.error(error));
   };
 
   /**
