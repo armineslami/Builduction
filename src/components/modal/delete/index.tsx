@@ -10,17 +10,17 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-interface SaveModalProps {
+interface DeleteModalProps {
   isOpen: boolean;
   onDeleteConfirm: () => void;
   onClose: () => void;
 }
 
-const DeleteModal: FunctionComponent<SaveModalProps> = ({
+const DeleteModal: FunctionComponent<DeleteModalProps> = ({
   isOpen,
   onDeleteConfirm,
   onClose,
-}: SaveModalProps) => {
+}: DeleteModalProps) => {
   const onCloseConfirm = async (e: FormEvent) => {
     e.preventDefault();
     onDeleteConfirm();
