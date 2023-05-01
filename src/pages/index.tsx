@@ -66,7 +66,7 @@ const HomePage: NextPage = () => {
           }}
         >
           <HStack className="header">
-            <Heading size="lg" mt="16px" mb="16px" fontWeight="bold">
+            <Heading size="md" mt="16px" mb="16px" fontWeight="bold">
               پروژه‌ها
             </Heading>
             <Spacer />
