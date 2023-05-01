@@ -96,7 +96,7 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
               ? project.title
               : "اطلاعات پروژه"}
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton mt={"8px"} />
           <ModalBody>
             {renderTitle("هزینه و سود")}
             <Card p={"8px"}>
