@@ -29,6 +29,7 @@ const DeleteModal = dynamic(() => import("@/components/modal/delete"));
 import Calculator from "@/models/Calculator";
 const Loading = dynamic(() => import("@/components/loading"));
 import dynamic from "next/dynamic";
+import AlertModal from "@/components/modal/alert";
 
 const ProjectPage: NextPage = () => {
   // Create an instance of database helper
@@ -52,6 +53,8 @@ const ProjectPage: NextPage = () => {
 
   const [isDeleteConfirmModalOpen, setIsDeleteConfirmModalOpen] =
     useState<boolean>(false);
+
+  const [isAlertModalOpen, setIsAlertModalOpen] = useState<boolean>(false);
 
   const [project, setProject] = useState<Project>(new Project());
 
@@ -116,6 +119,11 @@ const ProjectPage: NextPage = () => {
       setShowDeleteButton(true);
       createToast("", "پروژه با موفقیت ذخیره شد.", "success");
     }
+  }
+
+  function onProjectTitleClick() {
+    if (!project.title) return;
+    setIsAlertModalOpen(true);
   }
 
   /**
@@ -186,6 +194,15 @@ const ProjectPage: NextPage = () => {
           onDeleteConfirm={() => deleteProject(project.id)}
           onClose={() => setIsDeleteConfirmModalOpen(false)}
         />
+
+        {project.title ? (
+          <AlertModal
+            title={"نام پروژه"}
+            text={project.title}
+            isOpen={isAlertModalOpen}
+            onClose={() => setIsAlertModalOpen(false)}
+          />
+        ) : null}
       </>
     );
   };
@@ -205,11 +222,22 @@ const ProjectPage: NextPage = () => {
       >
         <HStack className="header">
           <Heading
-            size="lg"
+            size="md"
             mt="16px"
             mb="16px"
             fontWeight="bold"
             className="truncate"
+            cursor={project.title ? "pointer" : "default"}
+            maxWidth={{
+              base: "180px", // 0px
+              sm: "600px", // 480px
+              md: "700px", // 768px
+              lg: "100%", // 992px
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              onProjectTitleClick();
+            }}
           >
             {project.title ?? "پروژه جدید"}
           </Heading>
