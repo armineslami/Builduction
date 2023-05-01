@@ -229,7 +229,7 @@ const ProjectPage: NextPage = () => {
             className="truncate"
             cursor={project.title ? "pointer" : "default"}
             maxWidth={{
-              base: "180px", // 0px
+              base: "170px", // 0px
               sm: "600px", // 480px
               md: "700px", // 768px
               lg: "100%", // 992px
