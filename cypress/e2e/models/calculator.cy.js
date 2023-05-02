@@ -62,12 +62,6 @@ describe("Calculator", () => {
     expect(project.maximumParkingCount).to.be.equal(Number(count));
   });
 
-  it("should have correct parking count", () => {
-    const area = (project.landSize * 60) / 100;
-    const count = Number.parseFloat(area / 25).toFixed(0);
-    expect(project.maximumParkingCount).to.be.equal(Number(count));
-  });
-
   it("should have correct cost for purchasing the land and building it", () => {
     let area = (project.landSize * 60) / 100;
     area += project.delictArea;
