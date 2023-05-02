@@ -75,8 +75,17 @@ class Calculator {
     project.eachFloorLegalAreaToBuild = Number.parseFloat(
       (eachFloorArea - (project.delictArea ?? 0)).toFixed(2)
     );
-    project.eachFloorAreaToBuild = Number.parseFloat(
-      (eachFloorArea + (project.warehouseArea ?? 0)).toFixed(2)
+    project.eachUnitLegalAreaToBuild = Number.parseFloat(
+      (
+        project.eachFloorLegalAreaToBuild / (project.floorUnitCount ?? 1)
+      ).toFixed(2)
+    );
+    project.eachFloorAreaToBuild = Number.parseFloat(eachFloorArea.toFixed(2));
+    project.eachUnitAreaToBuild = Number.parseFloat(
+      (
+        project.eachUnitLegalAreaToBuild +
+        (project.delictArea ?? 0) / (project.floorUnitCount ?? 1)
+      ).toFixed(2)
     );
     project.maximumParkingCount = Number.parseFloat(
       ((project.eachFloorLegalAreaToBuild ?? 0) / 25).toFixed(0)
@@ -116,6 +125,7 @@ class Calculator {
     project.buildCostPerMeter = undefined;
     project.salesPricePerMeter = undefined;
     project.floorCount = undefined;
+    project.floorUnitCount = 1;
     project.densityPercentage = undefined;
     project.warehouseCount = undefined;
     project.warehouseArea = undefined;
@@ -128,7 +138,9 @@ class Calculator {
     project.otherCosts = 0;
 
     project.eachFloorLegalAreaToBuild = undefined;
+    project.eachUnitLegalAreaToBuild = undefined;
     project.eachFloorAreaToBuild = undefined;
+    project.eachUnitAreaToBuild = undefined;
     project.maximumParkingCount = undefined;
     project.totalAreaToBuild = undefined;
     project.totalAreaToSell = undefined;

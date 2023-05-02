@@ -10,6 +10,7 @@ describe("Calculator", () => {
     project.landSize = 200;
     project.densityPercentage = 60;
     project.floorCount = 5;
+    project.floorUnitCount = 1;
     project.warehouseCount = 5;
     project.warehouseArea = 5;
     project.buildCostPerMeter = 10000000;
@@ -28,11 +29,16 @@ describe("Calculator", () => {
     expect(calculatedProject.eachFloorLegalAreaToBuild).to.be.equal(area);
   });
 
-  it("should have correct area for each unit including delict area", () => {
+  it("should have correct area for each floor including delict area", () => {
     let area = (project.landSize * 60) / 100;
-    area += project.warehouseArea;
     area += project.delictArea;
     expect(calculatedProject.eachFloorAreaToBuild).to.be.equal(area);
+  });
+
+  it("should have correct area for each unit", () => {
+    let area = (project.landSize * 60) / 100;
+    area += project.delictArea / project.floorUnitCount;
+    expect(calculatedProject.eachUnitAreaToBuild).to.be.equal(area);
   });
 
   it("should have correct area to build for the whole building", () => {

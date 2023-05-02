@@ -9,6 +9,7 @@ class Project {
   buildCostPerMeter?: number;
   salesPricePerMeter?: number;
   floorCount?: number;
+  floorUnitCount?: number;
 
   densityPercentage?: number;
   warehouseCount?: number;
@@ -23,7 +24,9 @@ class Project {
   otherCosts?: number;
 
   eachFloorLegalAreaToBuild?: number;
+  eachUnitLegalAreaToBuild?: number;
   eachFloorAreaToBuild?: number;
+  eachUnitAreaToBuild?: number;
   maximumParkingCount?: number;
   totalAreaToBuild?: number;
   totalAreaToSell?: number;
@@ -44,6 +47,7 @@ class Project {
     this.buildCostPerMeter = undefined;
     this.salesPricePerMeter = undefined;
     this.floorCount = undefined;
+    this.floorUnitCount = 1;
     this.densityPercentage = undefined;
     this.warehouseCount = undefined;
     this.warehouseArea = undefined;
@@ -56,7 +60,9 @@ class Project {
     this.otherCosts = 0;
 
     this.eachFloorLegalAreaToBuild = undefined;
+    this.eachUnitLegalAreaToBuild = undefined;
     this.eachFloorAreaToBuild = undefined;
+    this.eachUnitAreaToBuild = undefined;
     this.maximumParkingCount = undefined;
     this.totalAreaToBuild = undefined;
     this.totalAreaToSell = undefined;
