@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import ApplicationWrapper from "@/models/context/AppContext";
-import ApplicationContext from "@/models/ApplicationContext";
+import ApplicationContext from "@/models/context/ApplicationContext";
 import { useState, SetStateAction, useEffect, useRef, useMemo } from "react";
 import MainLayout from "@/components/layout";
 import Fonts from "@/components/font";
