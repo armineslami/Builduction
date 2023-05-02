@@ -103,7 +103,7 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
               {renderHead("خرید زمین")}
               <Grid
                 templateRows="repeat(1, 1fr)"
-                templateColumns="repeat(6, 1fr)"
+                templateColumns="repeat(12, 1fr)"
                 gap={2}
               >
                 <Tooltip
@@ -111,7 +111,7 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
                   hasArrow
                   fontSize={"xs"}
                 >
-                  <GridItem colSpan={3} rowSpan={1} cursor={"default"}>
+                  <GridItem colSpan={6} rowSpan={1} cursor={"default"}>
                     {renderSubHead("هزینه نهایی")}
                     {renderNumbericText(
                       project?.totalCostInCaseOfPurchase ?? 0,
@@ -124,7 +124,7 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
                   hasArrow
                   fontSize={"xs"}
                 >
-                  <GridItem colSpan={3} rowSpan={1} cursor={"default"}>
+                  <GridItem colSpan={6} rowSpan={1} cursor={"default"}>
                     {renderSubHead("سود نهایی")}
                     {renderNumbericText(
                       project?.builderProfitInCaseOfPurchase ?? 0,
@@ -138,7 +138,7 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
               {renderHead("مشارکت")}
               <Grid
                 templateRows="repeat(1, 1fr)"
-                templateColumns="repeat(6, 1fr)"
+                templateColumns="repeat(12, 1fr)"
                 gap={2}
               >
                 <Tooltip
@@ -146,7 +146,7 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
                   hasArrow
                   fontSize={"xs"}
                 >
-                  <GridItem colSpan={3} rowSpan={1} cursor={"default"}>
+                  <GridItem colSpan={6} rowSpan={1} cursor={"default"}>
                     {renderSubHead("هزینه نهایی")}
                     {renderNumbericText(
                       project?.totalCostInCaseOfParticipation ?? 0,
@@ -159,7 +159,7 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
                   hasArrow
                   fontSize={"xs"}
                 >
-                  <GridItem colSpan={3} rowSpan={1} cursor={"default"}>
+                  <GridItem colSpan={6} rowSpan={1} cursor={"default"}>
                     {renderSubHead("سود نهایی")}
                     {renderNumbericText(
                       project?.builderProfitInCaseOfParticipation ?? 0,
@@ -174,21 +174,21 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
               {renderHead("زمین")}
               <Grid
                 templateRows="repeat(1, 1fr)"
-                templateColumns="repeat(6, 1fr)"
+                templateColumns="repeat(12, 1fr)"
                 gap={2}
               >
-                <GridItem colSpan={2} rowSpan={1}>
+                <GridItem colSpan={4} rowSpan={1}>
                   {renderSubHead("متراژ")}
                   {renderNumbericText(project?.landSize ?? 0, "متر")}
                 </GridItem>
-                <GridItem colSpan={2} rowSpan={1}>
+                <GridItem colSpan={4} rowSpan={1}>
                   {renderSubHead("قیمت هر متر")}
                   {renderNumbericText(
                     project?.purchasePricePerMeter ?? 0,
                     "تومان"
                   )}
                 </GridItem>
-                <GridItem colSpan={2} rowSpan={1}>
+                <GridItem colSpan={4} rowSpan={1}>
                   {renderSubHead("قیمت زمین")}
                   {renderNumbericText(project?.landPrice ?? 0, "تومان")}
                 </GridItem>
@@ -198,14 +198,60 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
               {renderHead("ساختمان")}
               <Grid
                 templateRows="repeat(1, 1fr)"
-                templateColumns="repeat(6, 1fr)"
+                templateColumns="repeat(12, 1fr)"
                 gap={2}
               >
-                <GridItem colSpan={2} rowSpan={1}>
+                <GridItem colSpan={3} rowSpan={1}>
+                  {renderSubHead("تعداد طبقات")}
+                  {renderNumbericText(project?.floorCount ?? 0, "عدد")}
+                </GridItem>
+                <GridItem colSpan={3} rowSpan={1}>
+                  {renderSubHead("واحد هر طبقه")}
+                  {renderNumbericText(project?.floorUnitCount ?? 0, "عدد")}
+                </GridItem>
+                <GridItem colSpan={3} rowSpan={1}>
+                  {renderSubHead("کل واحد‌ها")}
+                  {renderNumbericText(
+                    (project?.floorCount ?? 0) * (project?.floorUnitCount ?? 0),
+                    "عدد"
+                  )}
+                </GridItem>
+                <Tooltip
+                  label={"متراژ مجاز هر سقف ÷ ۲۵"}
+                  hasArrow
+                  fontSize={"xs"}
+                >
+                  <GridItem colSpan={3} rowSpan={1} cursor={"default"}>
+                    {renderSubHead("پارکینگ مجاز")}
+                    {renderNumbericText(
+                      project?.maximumParkingCount ?? 0,
+                      "عدد"
+                    )}
+                  </GridItem>
+                </Tooltip>
+                <GridItem colSpan={4} rowSpan={1}>
+                  {renderSubHead("متراژ مجاز هر سقف")}
+                  {renderNumbericText(
+                    project?.eachFloorLegalAreaToBuild ?? 0,
+                    "متر"
+                  )}
+                </GridItem>
+                <GridItem colSpan={4} rowSpan={1}>
+                  {renderSubHead("متراژ خلاف هر سقف")}
+                  {renderNumbericText(project?.delictArea ?? 0, "متر")}
+                </GridItem>
+                <GridItem colSpan={4} rowSpan={1}>
+                  {renderSubHead("مجموع متراژ هر سقف")}
+                  {renderNumbericText(
+                    project?.eachFloorAreaToBuild ?? 0,
+                    "متر"
+                  )}
+                </GridItem>
+                <GridItem colSpan={3} rowSpan={1}>
                   {renderSubHead("واحدها")}
                   {renderNumbericText(project?.totalAreaToBuild ?? 0, "متر")}
                 </GridItem>
-                <GridItem colSpan={2} rowSpan={1}>
+                <GridItem colSpan={3} rowSpan={1}>
                   {renderSubHead("انباری‌ها")}
                   {renderNumbericText(
                     (project?.warehouseCount ?? 0) *
@@ -213,7 +259,7 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
                     "متر"
                   )}
                 </GridItem>
-                <GridItem colSpan={2} rowSpan={1}>
+                <GridItem colSpan={3} rowSpan={1}>
                   {renderSubHead("مجموع")}
                   {renderNumbericText(project?.totalAreaToSell ?? 0, "متر")}
                 </GridItem>
@@ -222,7 +268,7 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
                   hasArrow
                   fontSize={"xs"}
                 >
-                  <GridItem colSpan={2} rowSpan={1} cursor={"default"}>
+                  <GridItem colSpan={3} rowSpan={1} cursor={"default"}>
                     {renderSubHead("سهم سازنده")}
                     {renderNumbericText(
                       project?.builderShareOfArea ?? 0,
@@ -230,24 +276,13 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
                     )}
                   </GridItem>
                 </Tooltip>
-                <GridItem colSpan={2} rowSpan={1}>
-                  {renderSubHead("تعداد طبقات")}
-                  {renderNumbericText(project?.floorCount ?? 0, "عدد")}
-                </GridItem>
-                <Tooltip
-                  label={"متراژ مجاز هر سقف ÷ ۲۵"}
-                  hasArrow
-                  fontSize={"xs"}
-                >
-                  <GridItem colSpan={2} rowSpan={1} cursor={"default"}>
-                    {renderSubHead("پارکینگ مجاز")}
-                    {renderNumbericText(
-                      project?.maximumParkingCount ?? 0,
-                      "عدد"
-                    )}
-                  </GridItem>
-                </Tooltip>
-                <GridItem colSpan={3} rowSpan={1}>
+
+                {/* <GridItem colSpan={4} rowSpan={1}>
+                  {renderSubHead("تعداد واحد هر طبقه")}
+                  {renderNumbericText(project?.floorUnitCount ?? 0, "عدد")}
+                </GridItem> */}
+
+                <GridItem colSpan={6} rowSpan={1}>
                   {renderSubHead("قیمت فروش هر متر")}
                   {renderNumbericText(
                     project?.salesPricePerMeter ?? 0,
@@ -259,7 +294,7 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
                   hasArrow
                   fontSize={"xs"}
                 >
-                  <GridItem colSpan={3} rowSpan={1} cursor={"default"}>
+                  <GridItem colSpan={6} rowSpan={1} cursor={"default"}>
                     {renderSubHead("ارزش کل واحدها")}
                     {renderNumbericText(
                       project?.totalValueOfProperty ?? 0,
@@ -267,7 +302,7 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
                     )}
                   </GridItem>
                 </Tooltip>
-                <GridItem colSpan={3} rowSpan={1}>
+                <GridItem colSpan={6} rowSpan={1}>
                   {renderSubHead("هزینه ساخت هر متر")}
                   {renderNumbericText(project?.buildCostPerMeter ?? 0, "تومان")}
                 </GridItem>
@@ -276,12 +311,12 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
                   hasArrow
                   fontSize={"xs"}
                 >
-                  <GridItem colSpan={3} rowSpan={1} cursor={"default"}>
+                  <GridItem colSpan={6} rowSpan={1} cursor={"default"}>
                     {renderSubHead("مجموع هزینه ساخت")}
                     {renderNumbericText(project?.buildCost ?? 0, "تومان")}
                   </GridItem>
                 </Tooltip>
-                <GridItem colSpan={3} rowSpan={1}>
+                <GridItem colSpan={12} rowSpan={1}>
                   {renderSubHead("سایر هزینه‌ها")}
                   {renderNumbericText(project?.otherCosts ?? 0, "تومان")}
                 </GridItem>
@@ -291,28 +326,29 @@ const CalculationModal: FunctionComponent<CalculationModalProps> = ({
               {renderHead("واحد")}
               <Grid
                 templateRows="repeat(1, 1fr)"
-                templateColumns="repeat(8, 1fr)"
+                templateColumns="repeat(12, 1fr)"
                 gap={2}
               >
-                <GridItem colSpan={2} rowSpan={1}>
+                {/* <GridItem colSpan={3} rowSpan={1}>
                   {renderSubHead("متراژ مجاز")}
                   {renderNumbericText(
-                    project?.eachFloorLegalAreaToBuild ?? 0,
+                    project?.eachUnitLegalAreaToBuild ?? 0,
                     "متر"
                   )}
+                </GridItem> */}
+                <GridItem colSpan={3} rowSpan={1}>
+                  {renderSubHead("متراژ")}
+                  {renderNumbericText(project?.eachUnitAreaToBuild ?? 0, "متر")}
                 </GridItem>
-                <GridItem colSpan={2} rowSpan={1}>
-                  {renderSubHead("متراژ خلاف")}
-                  {renderNumbericText(project?.delictArea ?? 0, "متر")}
-                </GridItem>
-                <GridItem colSpan={2} rowSpan={1}>
+                <GridItem colSpan={3} rowSpan={1}>
                   {renderSubHead("متراژ انباری")}
                   {renderNumbericText(project?.warehouseArea ?? 0, "متر")}
                 </GridItem>
-                <GridItem colSpan={2} rowSpan={1}>
+                <GridItem colSpan={3} rowSpan={1}>
                   {renderSubHead("مجموع")}
                   {renderNumbericText(
-                    project?.eachFloorAreaToBuild ?? 0,
+                    (project?.eachUnitAreaToBuild ?? 0) +
+                      (project?.warehouseArea ?? 0),
                     "متر"
                   )}
                 </GridItem>

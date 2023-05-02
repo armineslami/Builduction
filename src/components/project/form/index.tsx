@@ -26,6 +26,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
   const inputLandSize = useRef<HTMLInputElement>(null);
   const inputDensityPercentage = useRef<HTMLInputElement>(null);
   const inputFloorCount = useRef<HTMLInputElement>(null);
+  const inputFloorUnitCount = useRef<HTMLInputElement>(null);
   const inputWarehouseCount = useRef<HTMLInputElement>(null);
   const inputWarehouseArea = useRef<HTMLInputElement>(null);
   const inputBuildCostPerMeter = useRef<HTMLInputElement>(null);
@@ -68,6 +69,12 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
     project.floorCount =
       inputFloorCount.current?.value && inputFloorCount.current.value !== ""
         ? Number.parseInt(inputFloorCount.current.value)
+        : undefined;
+
+    project.floorUnitCount =
+      inputFloorUnitCount.current?.value &&
+      inputFloorUnitCount.current.value !== ""
+        ? Number.parseInt(inputFloorUnitCount.current.value)
         : undefined;
 
     project.warehouseCount =
@@ -154,7 +161,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
           templateColumns="repeat(12, 1fr)"
           gap={2}
         >
-          <GridItem colSpan={6} rowSpan={1}>
+          <GridItem colSpan={4} rowSpan={1}>
             {renderHeading("متراژ زمین")}
             <Input
               id="landSize"
@@ -167,7 +174,7 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
               step={".01"}
             />
           </GridItem>
-          <GridItem colSpan={6} rowSpan={1}>
+          <GridItem colSpan={4} rowSpan={1}>
             {renderHeading("درصد تراکم")}
             <Input
               id="densityPercentage"
@@ -187,6 +194,18 @@ const ProjectForm: FunctionComponent<ProjectFormProps> = ({
               ref={inputFloorCount}
               placeholder="تعداد"
               defaultValue={project?.floorCount}
+              type={"number"}
+              inputMode={"numeric"}
+              min={"0"}
+            />
+          </GridItem>
+          <GridItem colSpan={4} rowSpan={1}>
+            {renderHeading("تعداد واحد هر طبقه")}
+            <Input
+              id="floorUnitCount"
+              ref={inputFloorUnitCount}
+              placeholder="تعداد"
+              defaultValue={project?.floorUnitCount}
               type={"number"}
               inputMode={"numeric"}
               min={"0"}
